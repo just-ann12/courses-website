@@ -63,7 +63,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ lesson, classes }) => {
         onKeyDown={handleKeyDown}
         onClick={handlePictureInPicture}
       />
-      <div className="text-sm">
+      <div className="text-sm mt-2">
         Use arrow Up and Down to increase or decrease the video speed. Also, you
         can use arrow left and right to move 5 seconds back or forward.
       </div>

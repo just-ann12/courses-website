@@ -51,10 +51,18 @@ const Course = () => {
         }
       />
       <Container classes="py-8">
+        <p className="mb-4 text-2xl font-semibold">
+          Вasic information about the course:
+        </p>
         <CourseDescriptionItem
           title="Duration: "
           description={convertSeconds(data?.duration)}
-          classes="mb-4 text-xl"
+          classes="mb-2 text-xl"
+        />
+        <CourseDescriptionItem
+          title="Rating: "
+          description={data.rating}
+          classes="mb-2 text-xl"
         />
         <CourseDescriptionItem
           title="Skills: "
@@ -65,11 +73,6 @@ const Course = () => {
                   (skill: string) => `${skill.toLowerCase()}, `
                 )
           }
-          classes="mb-4 text-xl"
-        />
-        <CourseDescriptionItem
-          title="Rating: "
-          description={data.rating}
           classes="mb-4 text-xl"
         />
 
