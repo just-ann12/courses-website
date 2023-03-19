@@ -1,7 +1,7 @@
-import React, { useRef, FC, useEffect } from "react";
+import React, { useRef, FC } from "react";
 import Hls from "hls.js";
 
-import { useVideoPlayer } from "../hooks/useVideoPlayer";
+import { useVideoPlayer } from "../hooks/useLessonVideoPlayer";
 import { Lesson } from "../types/course";
 
 interface VideoPlayerProps {
@@ -18,39 +18,6 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ lesson, classes }) => {
 
   const { handleTimeUpdate, handleKeyDown, handlePictureInPicture } =
     useVideoPlayer(videoRef, lesson);
-
-  useEffect(() => {
-    const video = videoRef.current;
-
-    if (video) {
-      const existingData = localStorage.getItem(lesson.id);
-
-      if (existingData) {
-        const parsedData = JSON.parse(existingData);
-        const savedProgress = parsedData.progress;
-        if (savedProgress !== undefined) {
-          video.currentTime = savedProgress;
-        }
-      } else {
-        video.currentTime = 0;
-      }
-
-      const hls = new Hls();
-      hls.loadSource(lesson.link);
-      hls.attachMedia(video);
-      video.hls = hls;
-    }
-
-    return () => {
-      const video = videoRef.current;
-      if (video) {
-        const hls = video.hls;
-        if (hls) {
-          hls.destroy();
-        }
-      }
-    };
-  }, [lesson.link, lesson.id]);
 
   return (
     <div className={classes}>

@@ -1,4 +1,6 @@
 import { KeyboardEventHandler, useEffect } from "react";
+import Hls from "hls.js";
+
 import { Lesson } from "../types/course";
 import { SPEED_INCREMENT, TIME_INCREMENT } from "../utils/courses-constants";
 import { Keyboard } from "../utils/keyboard.enum";
@@ -7,6 +9,7 @@ export const useVideoPlayer = (videoRef: any, lesson: Lesson) => {
   useEffect(() => {
     const video = videoRef.current;
 
+    // Set up video player and load video source
     if (video) {
       const existingData = localStorage.getItem(lesson.id);
       if (existingData) {
@@ -18,11 +21,24 @@ export const useVideoPlayer = (videoRef: any, lesson: Lesson) => {
       } else {
         video.currentTime = 0;
       }
+
+      const hls = new Hls();
+      hls.loadSource(lesson.link);
+      hls.attachMedia(video);
+      video.hls = hls;
     }
 
-    if (video) {
-      saveProgress();
-    }
+    // Clean up video player and remove event listener
+    return () => {
+      const video = videoRef.current;
+      if (video) {
+        const hls = video.hls;
+        if (hls) {
+          hls.destroy();
+        }
+        video.removeEventListener("pause", saveProgress());
+      }
+    };
   }, [lesson.link, lesson.id]);
 
   const saveProgress = () => {

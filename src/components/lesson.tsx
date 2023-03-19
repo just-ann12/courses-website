@@ -3,7 +3,7 @@ import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 
 import { Lesson } from "../types/course";
 
-import VideoPlayer from "../shared/videoPlayer";
+import VideoPlayer from "./lessonVideoPlayer";
 import ProgressBar from "./progressBar";
 
 interface LessonProps {

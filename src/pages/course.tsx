@@ -9,7 +9,7 @@ import { convertSeconds } from "../utils/converSeconds";
 
 import Container from "../shared/container";
 import Loader from "../shared/loader";
-import VideoPlayer from "../shared/videoPlayer";
+import VideoPlayer from "../components/lessonVideoPlayer";
 import LessonItem from "../components/lesson";
 import CourseDescriptionItem from "../components/courseDescriptionItem";
 import Banner from "../shared/banner";
